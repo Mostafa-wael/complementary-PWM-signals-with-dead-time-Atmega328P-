@@ -25,18 +25,15 @@ void Timer1init ()
 	* ICR = 800; presacler = 1:1; -->setting the prescaler to 1:1 through the bits CS12:CS11:CS10 
 	* }                                                           
 	*/
-	
-	ICR1 = 800; 
-	TCCR1B |= (1<<CS10);
-
-	
+	ICR1 = F_CPU / (PWM_freq * prescaler * 2) //setting ICR1 to 800 
+	TCCR1B |= (1<<CS10); // setting the prescaler to 1:1
 	/**
 	* \details{
 	* duty cycle D = onTime / (onTime + offTime);
 	*
 	* OCSRx = D * topValue;
 	*
-	* for A, let the duty cycle be 50% i.e. onTime = 100 unit, offTime = 200 unit;
+	* for A, let the duty cycle be 50% i.e. onTime = 100 unit, offTime = 100 unit;
 	*
 	* OCSRA = 50% * 800 = 400;
 	*
@@ -49,9 +46,8 @@ void Timer1init ()
 	* OCSRB = 40% * 800 = 320;   
 	* }                                                               
 	*/
-	
-	OCR1A = 400;
-	OCR1B = 320;
+	OCR1A = duty_cycle * ICR1; // setting OCR1A to 400
+	OCR1B = duty_cycle * ( 1 - 2 * dead_time) * ICR1; // setting OCR1B to 320
 	/**
 	* \details{
 	*	we need to set our PWM mode to phase correct mode with a topValue of ICR1

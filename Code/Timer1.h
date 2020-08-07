@@ -9,14 +9,16 @@
  */
 #ifndef TIMER1_H_
 #define TIMER1_H_
-
 #include <avr/io.h>
 /**
  * @brief setting the CPU frequency to 8MHz
  * 
  */
-#define F_CPU 8000000ul 
-
+#define F_CPU (8000000ul) 
+#define PWM_freq 5000
+#define prescaler 1
+#define duty_cycle (50/100)
+#define dead_time (10/100)
 /**
 * @brief this function is responsible for generating the 2-complementary signals with the injected dead time 
 *
