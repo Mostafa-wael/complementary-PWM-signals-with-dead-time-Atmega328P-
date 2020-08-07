@@ -1,12 +1,16 @@
-/*
- * GPIO.c
- *
- * Created: 7/23/2020 6:44:10 PM
- *  Author: Mostafa Wael
+/**
+ * @file GPIO.c
+ * @author Mostafa Wael
+ * @date 2020-08-07
+ * 
+ * 
  */ 
 #include "GPIO.h"
-void Gpininit ()
+void GPIOinit ()
 {
-	
-	DDRB |= (1<<DDB1) | (1<<DDB2); // setting pins B1  and B2 as output as they are the pins responsible for the timers 
+	/**
+	 * @brief setting pins B1  and B2 as output as they are the pins responsible for the timers 
+	 * 
+	 */
+	DDRB |= (1<<DDB1) | (1<<DDB2);
 }

@@ -1,14 +1,15 @@
-/*
- * Timer1.c
- *
- * Created: 7/23/2020 6:43:23 PM
- *  Author: Mostafa Wael
- */ 
+/**
+ * @file Timer1.c
+ * @author Mostafa Wael
+ * @date 2020-08-07
+ * 
+ * 
+ */
 #include "Timer1.h"
 void Timer1init ()
 {
 	/**
-	* \details
+	* \details{
 	* internal frequency = 8MHZ;
 	*
 	* desired frequency = 5KHZ;
@@ -21,7 +22,8 @@ void Timer1init ()
 	*
 	* then, we don't have to use a prescaler   
 	*
-	* ICR = 800; presacler = 1:1; -->setting the prescaler to 1:1 through the bits CS12:CS11:CS10                                                            
+	* ICR = 800; presacler = 1:1; -->setting the prescaler to 1:1 through the bits CS12:CS11:CS10 
+	* }                                                           
 	*/
 	
 	ICR1 = 800; 
@@ -29,7 +31,7 @@ void Timer1init ()
 
 	
 	/**
-	* \details
+	* \details{
 	* duty cycle D = onTime / (onTime + offTime);
 	*
 	* OCSRx = D * topValue;
@@ -44,23 +46,25 @@ void Timer1init ()
 	*
 	* hence, the duty cycle of B is 80/200 = 40%
 	*
-	* OCSRB = 40% * 800 = 320;                                                                  
+	* OCSRB = 40% * 800 = 320;   
+	* }                                                               
 	*/
 	
 	OCR1A = 400;
 	OCR1B = 320;
 	/**
-	* \details
+	* \details{
 	*	we need to set our PWM mode to phase correct mode with a topValue of ICR1
 	*
 	*	WGM13 : WGM12 : WGM11 : WGM10  
 	* 
 	*	  1		  0		  1		  0 
+	* }
 	*/
 	TCCR1B |= (1<<WGM13) ;
 	TCCR1A |= (1<<WGM11);
 	/**
-	* \details
+	* \details{
 	* in order to obtain two complementary signals, 
 	*
 	* we should set one of the ports to the inverted mode and the other to the non-inverted mode
@@ -70,6 +74,7 @@ void Timer1init ()
 	* 	1		0  --> non-inverted i.e. clear --> set
 	*
 	*	1		1  --> inverted		i.e. set --> clear
+	* }
 	*/
 	TCCR1A |= (1<<COM1A1) | (1<<COM1B1) | (1<<COM1B0);   
 }
